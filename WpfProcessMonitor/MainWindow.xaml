@@ -1,0 +1,95 @@
+﻿<Window x:Class="WpfProcessMonitor.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+        xmlns:local="clr-namespace:WpfProcessMonitor"
+        xmlns:diag="clr-namespace:System.Diagnostics;assembly=System"
+        TextElement.Foreground="{DynamicResource MaterialDesignBody}"
+        Background="{DynamicResource MaterialDesignPaper}"
+     FontFamily="{DynamicResource MaterialDesignFont}"
+        mc:Ignorable="d"
+        Title="Process Monitor" Height="450" Width="670.994" Loaded="Window_Loaded">
+    <Window.Resources>
+        <DataTemplate x:Key="ProcessDT">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="70"/>
+                    <ColumnDefinition Width="300"/>
+                    <ColumnDefinition Width="100"/>
+                    <ColumnDefinition Width="100"/>
+                </Grid.ColumnDefinitions>
+                <TextBlock Text="{Binding Id}"  Foreground="Black" />
+                <TextBlock Grid.Column="1" Text="{Binding ProcessName}" Foreground="Black" />
+                <TextBlock Grid.Column="2" Text="{Binding WorkingSet64, StringFormat=' {0} Bytes'}" Foreground="Black" />
+                <TextBlock Grid.Column="3" Text="{Binding PriorityClass}" Foreground="Black" />
+            </Grid>
+        </DataTemplate>
+        <ObjectDataProvider x:Key="processList" MethodName="GetProcesses" ObjectType="{x:Type diag:Process}">
+        </ObjectDataProvider>
+    </Window.Resources>
+    <Grid Margin='4'>
+        <TextBlock HorizontalAlignment="Center" Margin="286,0,285.8,389">Process Monitor</TextBlock>
+        <Grid Height="412" Margin="0,0,-0.2,0" VerticalAlignment="Top" DataContext="{StaticResource processList}" x:Name="dataGrid">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="93*"/>
+                <RowDefinition Height="57*"/>
+                <RowDefinition Height="43*"/>
+                <RowDefinition Height="219*"/>
+            </Grid.RowDefinitions>
+            <UniformGrid Columns="4" VerticalAlignment="Center" Height="50">
+                <ComboBox
+  materialDesign:HintAssist.Hint="Sort"
+                    x:Name="sortField"
+  IsEditable="True"
+  Style="{StaticResource MaterialDesignFloatingHintComboBox}">
+                    <ComboBoxItem
+    IsSelected="True">
+                        ID
+                    </ComboBoxItem>
+                    <ComboBoxItem>
+                        Memory
+                    </ComboBoxItem>
+                    <ComboBoxItem>
+                        Name
+                    </ComboBoxItem>
+                    <ComboBoxItem>State</ComboBoxItem>
+                </ComboBox>
+                <RadioButton
+    Style="{StaticResource MaterialDesignRadioButton}" VerticalAlignment="Center" x:Name="sortAsc">
+                    Ascending
+                </RadioButton>
+                <RadioButton
+    Style="{StaticResource MaterialDesignRadioButton}" VerticalAlignment="Center" x:Name="sortDesc">
+                    Descending
+                </RadioButton>
+                <Button
+    Style="{StaticResource MaterialDesignFlatButton}" x:Name="SortBtn"
+    ToolTip="MaterialDesignFlatButton" HorizontalAlignment="Right" VerticalAlignment="Center" Content="Sort" Click="SortBtn_Click"/>
+            </UniformGrid>
+
+            <Grid Grid.Row="1" Height="50">
+                <Grid.RowDefinitions>
+                    <RowDefinition/>
+                </Grid.RowDefinitions>
+                <TextBox
+  materialDesign:HintAssist.Hint="Filter Term" x:Name="filter"
+  Style="{StaticResource MaterialDesignFloatingHintTextBox}" />
+                <Button 
+    Style="{StaticResource MaterialDesignFlatButton}" x:Name="FilterBtn"
+    ToolTip="MaterialDesignFlatButton" HorizontalAlignment="Right" VerticalAlignment="Center" Content="Filter" Click="FilterBtn_Click"/>
+
+            </Grid>
+            <Button x:Name="priorityGroup"
+    Style="{StaticResource MaterialDesignFlatButton}"
+    Grid.Row="2" HorizontalAlignment="Center" Margin="0 5 0 0" VerticalAlignment="Center" Content="Group By Priority" Click="priorityGroup_Click"/>
+            <Border Grid.Row="3"  BorderBrush="DarkGray" BorderThickness="2">
+                <ListBox ItemsSource="{Binding}" x:Name="list" ItemTemplate="{StaticResource ProcessDT}">
+
+                </ListBox>
+            </Border>
+        </Grid>
+    </Grid>
+
+</Window>

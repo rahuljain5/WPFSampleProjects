@@ -1,0 +1,84 @@
+﻿<Window x:Class="FormDesignLab.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:FormDesignLab"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="800" Width="400" ResizeMode="CanResize">
+    <ScrollViewer VerticalScrollBarVisibility="Hidden">
+    <Border BorderBrush="CornflowerBlue" BorderThickness="5">
+    <StackPanel Margin="10">
+        <UniformGrid Rows="1" Columns="3" Margin="0,0,0,10">
+                <Button Margin="0,0,10,0" Background="#2d931d" BorderThickness="0" Foreground="White" Click="Button_Click">Apply</Button>
+                <Button Margin="0,0,10,0" Background="#af2126" BorderThickness="0" Foreground="White">Reset</Button>
+                <Button Background="#2a4a7f" BorderThickness="0" Foreground="White">Refresh</Button>
+        </UniformGrid>
+        <TextBlock FontWeight="Bold">Pulse Properties</TextBlock>
+        <Label>Description</Label>
+        <TextBox></TextBox>
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition/>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="124*"/>
+                <ColumnDefinition Width="63*"/>
+            </Grid.ColumnDefinitions>
+            <StackPanel Margin="0,0,7,0.2">
+                <Label>Status</Label>
+                    <TextBox IsEnabled="False" Background="LightGray"></TextBox>
+            </StackPanel>
+            <StackPanel Grid.Column="1">
+                <Label>Revision</Label>
+                    <TextBox IsEnabled="False" Background="LightGray"></TextBox>
+            </StackPanel>
+        </Grid>
+        <Label>Part Number</Label>
+            <TextBox IsEnabled="False" Background="LightGray"></TextBox>
+        <TextBlock Margin="0,10,0,0"><Bold>Raw Material</Bold></TextBlock>
+        <Label>Material</Label>
+        <ComboBox>
+            <ComboBoxItem></ComboBoxItem>
+        </ComboBox>
+        <TextBlock Margin="0,10,0,0"><Bold>Manufacturing Information</Bold></TextBlock>
+        <Label>Work Centres</Label>
+        <UniformGrid Rows="1" Columns="2">
+            <StackPanel>
+                <CheckBox>Weld</CheckBox>
+                <CheckBox>Assembly</CheckBox>
+                <CheckBox>Plasma</CheckBox>
+                <CheckBox>Laser</CheckBox>
+                <CheckBox>Purchase</CheckBox>
+            </StackPanel>
+            <StackPanel Grid.Column="2">
+                <CheckBox>lathe</CheckBox>
+                <CheckBox>Drill</CheckBox>
+                <CheckBox>Fold</CheckBox>
+                <CheckBox>Roll</CheckBox>
+                <CheckBox>Saw</CheckBox>
+            </StackPanel>
+        </UniformGrid>
+        <Label>Length</Label>
+        <TextBox ></TextBox>
+        <Label>Mass</Label>
+            <TextBox IsEnabled="False" Background="LightGray"></TextBox>
+        <Label>Finish</Label>
+        <ComboBox>
+            <ComboBoxItem IsSelected="True">Painted</ComboBoxItem>
+        </ComboBox>
+        <Label>Purchase Information</Label>
+        <ComboBox>
+            <ComboBoxItem IsSelected="True">Rubber</ComboBoxItem>
+        </ComboBox>
+        <Label>Supplier Name</Label>
+        <TextBox></TextBox>
+        <Label>Supplier Code</Label>
+        <TextBox></TextBox>
+        <TextBlock Margin="0,8,0,0"><Bold>Additional Information</Bold></TextBlock>
+        <Label>Note</Label>
+        <TextBox></TextBox>
+    </StackPanel>
+    </Border>
+    </ScrollViewer>
+</Window>

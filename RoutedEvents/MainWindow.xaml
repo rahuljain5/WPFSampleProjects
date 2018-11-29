@@ -1,0 +1,15 @@
+﻿<Window x:Class="RoutedEvents.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:RoutedEvents"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="450" Width="800">
+    <Grid ButtonBase.Click="Grid_Click">
+        <Button Content="Button 1" x:Name="b1" HorizontalAlignment="Left" Margin="59,47,0,0" VerticalAlignment="Top" Width="75"/>
+        <Button Content="Button 2" x:Name="b2" HorizontalAlignment="Left" Margin="177,98,0,0" VerticalAlignment="Top" Width="75"/>
+        <Button Content="Button 3" x:Name="b3" HorizontalAlignment="Left" Margin="294,139,0,0" VerticalAlignment="Top" Width="75"/>
+
+    </Grid>
+</Window>

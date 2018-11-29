@@ -1,0 +1,901 @@
+﻿<Window x:Class="ToDoApp.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+        xmlns:domain1="clr-namespace:MaterialDesignDemo.Domain;assembly=MaterialDesignDemo"
+        mc:Ignorable="d"
+        Title="To Do App" Height="750" Width="850">
+    <Window.Resources>
+        <Style x:Key="CardDate" TargetType="TextBlock">
+            <Setter Property="Foreground" Value="#D98013"></Setter>
+            <Setter Property="FontWeight" Value="DemiBold"></Setter>
+        </Style>
+    </Window.Resources>
+
+    <materialDesign:DialogHost
+  DialogClosing="Sample5_DialogHost_OnDialogClosing"
+  Style="{StaticResource MaterialDesignEmbeddedDialogHost}"
+  DialogMargin="8">
+        <materialDesign:DialogHost.DialogContent>
+            <StackPanel
+      Margin="16">
+                <TextBlock>
+      Add a New Item
+                </TextBlock>
+                <TextBox
+        Margin="0 8 0 0"
+        HorizontalAlignment="Stretch"
+        x:Name="TitleTextBox"
+                    materialDesign:HintAssist.Hint="Title"/>
+                <TextBox
+        Margin="0 8 0 0"
+        HorizontalAlignment="Stretch"
+        x:Name="DescTextBox" 
+                    materialDesign:HintAssist.Hint="Description"/>
+                <DatePicker
+  x:Name="FutureDatePickerAdd"
+  Margin="0 6 0 0"
+  materialDesign:HintAssist.Hint="Finish Date">
+                </DatePicker>
+                <StackPanel
+        Orientation="Horizontal"
+        HorizontalAlignment="Right">
+                    <Button
+          Style="{StaticResource MaterialDesignFlatButton}"
+          IsDefault="True"
+          Margin="0 8 8 0"
+          Command="materialDesign:DialogHost.CloseDialogCommand">
+                        <Button.CommandParameter>
+                            <system:Boolean xmlns:system="clr-namespace:System;assembly=mscorlib">
+                                True
+                            </system:Boolean>
+                        </Button.CommandParameter>
+                        Create
+                    </Button>
+                    <Button
+          Style="{StaticResource MaterialDesignFlatButton}"
+          IsCancel="True"
+          Margin="0 8 8 0"
+          Command="materialDesign:DialogHost.CloseDialogCommand">
+                        <Button.CommandParameter>
+                            <system:Boolean xmlns:system="clr-namespace:System;assembly=mscorlib">
+                                False
+                            </system:Boolean>
+                        </Button.CommandParameter>
+                        CANCEL
+                    </Button>
+                </StackPanel>
+            </StackPanel>
+        </materialDesign:DialogHost.DialogContent>
+        <Border
+    BorderThickness="1"
+    BorderBrush="{DynamicResource PrimaryHueMidBrush}"
+    ClipToBounds="True"
+    HorizontalAlignment="Stretch">
+            <Grid SelectiveScrollingGrid.SelectiveScrollingOrientation="Vertical">
+                <Grid.RowDefinitions>
+                    <RowDefinition
+          Height="14*" />
+                    <RowDefinition
+          Height="*" />
+                </Grid.RowDefinitions>
+                <ScrollViewer VerticalScrollBarVisibility="Hidden">
+                    <UniformGrid Rows="2" Columns="4" Margin="3">
+                        <materialDesign:Flipper  Margin="0,0,0,60.6" VerticalAlignment="Stretch" >
+                            <materialDesign:Flipper.FrontContent >
+                                <materialDesign:Card
+  Width="200">
+                                    <Grid>
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition
+        Height="140" />
+                                            <RowDefinition
+        Height="*" />
+                                            <RowDefinition
+        Height="Auto" />
+                                        </Grid.RowDefinitions>
+                                        <Image
+                    Source="C:\Users\Rahul Jain\source\repos\WpfAppDemo\ToDoApp\Resources\Cycling.jpg"
+      Height="140"
+      Width="196"
+      Stretch="UniformToFill" />
+                                        <Button
+      Grid.Row="0"
+      Style="{StaticResource MaterialDesignFloatingActionMiniAccentButton}"
+      HorizontalAlignment="Right"
+      VerticalAlignment="Bottom"
+      Margin="0 0 16 -20">
+                                            <materialDesign:PackIcon
+        Kind="Number1" 
+        Height="Auto"
+                        Width="Auto"
+                        />
+                                        </Button>
+                                        <StackPanel
+      Grid.Row="1"
+      Margin="8 24 8 0">
+                                            <TextBlock
+        FontWeight="Bold">
+      Cycling
+                                            </TextBlock>
+                                            <TextBlock
+        TextWrapping="Wrap"
+        VerticalAlignment="Center">
+      A great way to keep fit and forget about the constant grind of IT.
+                                            </TextBlock>
+                                            <TextBlock
+        TextWrapping="Wrap"
+        VerticalAlignment="Center" Style="{StaticResource CardDate}">
+            Finish By 19-01-2019
+                                            </TextBlock>
+                                        </StackPanel>
+                                        <StackPanel
+      HorizontalAlignment="Right"
+      Grid.Row="2"
+      Orientation="Horizontal"
+      Margin="8">
+                                            <Button
+        Style="{StaticResource MaterialDesignToolButton}"
+        Width="30"
+        Padding="2 0 2 0"
+        materialDesign:RippleAssist.IsCentered="True" Click="IconSwitch">
+                                                <materialDesign:PackIcon
+          Kind="CheckCircleOutline" />
+                                            </Button>
+
+                                            <Button
+          Style="{StaticResource MaterialDesignToolButton}"
+Padding="2 0 2 0"
+        materialDesign:RippleAssist.IsCentered="True"
+          Command="{x:Static materialDesign:Flipper.FlipCommand}"
+          >
+                                                EDIT
+                                            </Button>
+                                        </StackPanel>
+                                    </Grid>
+                                </materialDesign:Card>
+                            </materialDesign:Flipper.FrontContent>
+                            <materialDesign:Flipper.BackContent>
+                                <Grid
+      Height="350"
+      Width="200">
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition
+          Height="Auto" />
+                                        <RowDefinition
+          Height="*" />
+                                    </Grid.RowDefinitions>
+                                    <materialDesign:ColorZone
+        Mode="Accent"
+        Padding="6">
+                                        <StackPanel
+          Orientation="Horizontal">
+                                            <Button
+            Style="{StaticResource MaterialDesignToolForegroundButton}"
+            Command="{x:Static materialDesign:Flipper.FlipCommand}"
+            HorizontalAlignment="Left">
+                                                <materialDesign:PackIcon
+              Kind="ArrowLeft"
+              HorizontalAlignment="Right" />
+                                            </Button>
+                                            <TextBlock
+            Margin="8 0 0 0"
+            VerticalAlignment="Center">
+          Edit Item
+                                            </TextBlock>
+                                        </StackPanel>
+                                    </materialDesign:ColorZone>
+                                    <Grid
+        Grid.Row="1"
+        Margin="0 6 0 0"
+        HorizontalAlignment="Center"
+        VerticalAlignment="Top"
+        Width="172">
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition />
+                                            <RowDefinition />
+                                            <RowDefinition />
+                                            <RowDefinition />
+                                        </Grid.RowDefinitions>
+                                        <TextBox
+          materialDesign:HintAssist.Hint="Title"
+          materialDesign:HintAssist.IsFloating="True"
+          Margin="0 12 0 0">
+                                            Cycling
+                                        </TextBox>
+                                        <TextBox
+          Grid.Row="1"
+          materialDesign:HintAssist.Hint="Description"
+          materialDesign:HintAssist.IsFloating="True"
+          Margin="0 12 0 0" TextWrapping="Wrap">
+                                            A great way to keep fit and forget about the constant grind of IT.
+                                        </TextBox>
+                                        <StackPanel
+          Grid.Row="2"
+          Orientation="Vertical"
+          Margin="0 12 0 0"
+          HorizontalAlignment="Left">
+                                            <DatePicker
+  x:Name="FutureDatePicker"
+  Width="172"
+  materialDesign:HintAssist.Hint="Completion Date">
+                                                <DatePicker.SelectedDate>
+                                                    <Binding
+      Path="FutureValidatingDate"
+      UpdateSourceTrigger="PropertyChanged">
+                                                        <Binding.ValidationRules>
+                                                            <domain1:FutureDateValidationRule
+          ValidatesOnTargetUpdated="True" xmlns:domain="clr-namespace:MaterialDesignDemo.Domain" />
+                                                        </Binding.ValidationRules>
+                                                    </Binding>
+                                                </DatePicker.SelectedDate>
+                                            </DatePicker>
+                                            <Button Style="{StaticResource MaterialDesignFlatButton}">
+                                                ACCEPT
+                                            </Button>
+                                        </StackPanel>
+                                    </Grid>
+                                </Grid>
+                            </materialDesign:Flipper.BackContent>
+                        </materialDesign:Flipper>
+                        <materialDesign:Flipper Margin="0,0,0,60.6" VerticalAlignment="Stretch">
+                            <materialDesign:Flipper.FrontContent>
+                                <materialDesign:Card
+  Width="200">
+                                    <Grid>
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition
+        Height="140" />
+                                            <RowDefinition
+        Height="*" />
+                                            <RowDefinition
+        Height="Auto" />
+                                        </Grid.RowDefinitions>
+                                        <Image
+                    Source="C:\Users\Rahul Jain\source\repos\WpfAppDemo\ToDoApp\Resources\Cycling.jpg"
+      Height="140"
+      Width="196"
+      Stretch="UniformToFill" />
+                                        <Button
+      Grid.Row="0"
+      Style="{StaticResource MaterialDesignFloatingActionMiniAccentButton}"
+      HorizontalAlignment="Right"
+      VerticalAlignment="Bottom"
+      Margin="0 0 16 -20">
+                                            <materialDesign:PackIcon
+        Kind="Number2" 
+        Height="Auto"
+                        Width="Auto"
+                        />
+                                        </Button>
+                                        <StackPanel
+      Grid.Row="1"
+      Margin="8 24 8 0">
+                                            <TextBlock
+        FontWeight="Bold">
+      Cycling
+                                            </TextBlock>
+                                            <TextBlock
+        TextWrapping="Wrap"
+        VerticalAlignment="Center">
+      A great way to keep fit and forget about the constant grind of IT.
+                                            </TextBlock>
+                                            <TextBlock
+        TextWrapping="Wrap"
+        VerticalAlignment="Center" Style="{StaticResource CardDate}">
+            Finish By 19-01-2019
+                                            </TextBlock>
+                                        </StackPanel>
+                                        <StackPanel
+      HorizontalAlignment="Right"
+      Grid.Row="2"
+      Orientation="Horizontal"
+      Margin="8">
+                                            <Button
+        Style="{StaticResource MaterialDesignToolButton}"
+        Width="30"
+        Padding="2 0 2 0"
+        materialDesign:RippleAssist.IsCentered="True" Click="IconSwitch">
+                                                <materialDesign:PackIcon
+          Kind="CheckCircleOutline" />
+                                            </Button>
+
+                                            <Button
+          Style="{StaticResource MaterialDesignToolButton}"
+Padding="2 0 2 0"
+        materialDesign:RippleAssist.IsCentered="True"
+          Command="{x:Static materialDesign:Flipper.FlipCommand}"
+          >
+                                                EDIT
+                                            </Button>
+                                        </StackPanel>
+                                    </Grid>
+                                </materialDesign:Card>
+                            </materialDesign:Flipper.FrontContent>
+                            <materialDesign:Flipper.BackContent>
+                                <Grid
+      Height="350"
+      Width="200">
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition
+          Height="Auto" />
+                                        <RowDefinition
+          Height="*" />
+                                    </Grid.RowDefinitions>
+                                    <materialDesign:ColorZone
+        Mode="Accent"
+        Padding="6">
+                                        <StackPanel
+          Orientation="Horizontal">
+                                            <Button
+            Style="{StaticResource MaterialDesignToolForegroundButton}"
+            Command="{x:Static materialDesign:Flipper.FlipCommand}"
+            HorizontalAlignment="Left">
+                                                <materialDesign:PackIcon
+              Kind="ArrowLeft"
+              HorizontalAlignment="Right" />
+                                            </Button>
+                                            <TextBlock
+            Margin="8 0 0 0"
+            VerticalAlignment="Center">
+          Edit Item
+                                            </TextBlock>
+                                        </StackPanel>
+                                    </materialDesign:ColorZone>
+                                    <Grid
+        Grid.Row="1"
+        Margin="0 6 0 0"
+        HorizontalAlignment="Center"
+        VerticalAlignment="Top"
+        Width="172">
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition />
+                                            <RowDefinition />
+                                            <RowDefinition />
+                                            <RowDefinition />
+                                        </Grid.RowDefinitions>
+                                        <TextBox
+          materialDesign:HintAssist.Hint="Title"
+          materialDesign:HintAssist.IsFloating="True"
+          Margin="0 12 0 0">
+                                            Cycling
+                                        </TextBox>
+                                        <TextBox
+          Grid.Row="1"
+          materialDesign:HintAssist.Hint="Description"
+          materialDesign:HintAssist.IsFloating="True"
+          Margin="0 12 0 0" TextWrapping="Wrap">
+                                            A great way to keep fit and forget about the constant grind of IT.
+                                        </TextBox>
+                                        <StackPanel
+          Grid.Row="2"
+          Orientation="Vertical"
+          Margin="0 12 0 0"
+          HorizontalAlignment="Left">
+                                            <DatePicker
+  x:Name="FutureDatePicker2"
+  Width="172"
+  materialDesign:HintAssist.Hint="Completion Date">
+                                                <DatePicker.SelectedDate>
+                                                    <Binding
+      Path="FutureValidatingDate"
+      UpdateSourceTrigger="PropertyChanged">
+                                                        <Binding.ValidationRules>
+                                                            <domain1:FutureDateValidationRule
+          ValidatesOnTargetUpdated="True" xmlns:domain="clr-namespace:MaterialDesignDemo.Domain" />
+                                                        </Binding.ValidationRules>
+                                                    </Binding>
+                                                </DatePicker.SelectedDate>
+                                            </DatePicker>
+                                            <Button Style="{StaticResource MaterialDesignFlatButton}">
+                                                ACCEPT
+                                            </Button>
+                                        </StackPanel>
+                                    </Grid>
+                                </Grid>
+                            </materialDesign:Flipper.BackContent>
+                        </materialDesign:Flipper>
+                        <materialDesign:Flipper Margin="0,0,0,60.6" VerticalAlignment="Stretch">
+                            <materialDesign:Flipper.FrontContent>
+                                <materialDesign:Card
+  Width="200">
+                                    <Grid>
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition
+        Height="140" />
+                                            <RowDefinition
+        Height="*" />
+                                            <RowDefinition
+        Height="Auto" />
+                                        </Grid.RowDefinitions>
+                                        <Image
+                    Source="C:\Users\Rahul Jain\source\repos\WpfAppDemo\ToDoApp\Resources\Cycling.jpg"
+      Height="140"
+      Width="196"
+      Stretch="UniformToFill" />
+                                        <Button
+      Grid.Row="0"
+      Style="{StaticResource MaterialDesignFloatingActionMiniAccentButton}"
+      HorizontalAlignment="Right"
+      VerticalAlignment="Bottom"
+      Margin="0 0 16 -20">
+                                            <materialDesign:PackIcon
+        Kind="Number3" 
+        Height="Auto"
+                        Width="Auto"
+                        />
+                                        </Button>
+                                        <StackPanel
+      Grid.Row="1"
+      Margin="8 24 8 0">
+                                            <TextBlock
+        FontWeight="Bold">
+      Cycling
+                                            </TextBlock>
+                                            <TextBlock
+        TextWrapping="Wrap"
+        VerticalAlignment="Center">
+      A great way to keep fit and forget about the constant grind of IT.
+                                            </TextBlock>
+                                            <TextBlock
+        TextWrapping="Wrap"
+        VerticalAlignment="Center" Style="{StaticResource CardDate}">
+            Finish By 19-01-2019
+                                            </TextBlock>
+                                        </StackPanel>
+                                        <StackPanel
+      HorizontalAlignment="Right"
+      Grid.Row="2"
+      Orientation="Horizontal"
+      Margin="8">
+                                            <Button
+        Style="{StaticResource MaterialDesignToolButton}"
+        Width="30"
+        Padding="2 0 2 0"
+        materialDesign:RippleAssist.IsCentered="True" Click="IconSwitch">
+                                                <materialDesign:PackIcon
+          Kind="CheckCircleOutline" />
+                                            </Button>
+
+                                            <Button
+          Style="{StaticResource MaterialDesignToolButton}"
+Padding="2 0 2 0"
+        materialDesign:RippleAssist.IsCentered="True"
+          Command="{x:Static materialDesign:Flipper.FlipCommand}"
+          >
+                                                EDIT
+                                            </Button>
+                                        </StackPanel>
+                                    </Grid>
+                                </materialDesign:Card>
+                            </materialDesign:Flipper.FrontContent>
+                            <materialDesign:Flipper.BackContent>
+                                <Grid
+      Height="350"
+      Width="200">
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition
+          Height="Auto" />
+                                        <RowDefinition
+          Height="*" />
+                                    </Grid.RowDefinitions>
+                                    <materialDesign:ColorZone
+        Mode="Accent"
+        Padding="6">
+                                        <StackPanel
+          Orientation="Horizontal">
+                                            <Button
+            Style="{StaticResource MaterialDesignToolForegroundButton}"
+            Command="{x:Static materialDesign:Flipper.FlipCommand}"
+            HorizontalAlignment="Left">
+                                                <materialDesign:PackIcon
+              Kind="ArrowLeft"
+              HorizontalAlignment="Right" />
+                                            </Button>
+                                            <TextBlock
+            Margin="8 0 0 0"
+            VerticalAlignment="Center">
+          Edit Item
+                                            </TextBlock>
+                                        </StackPanel>
+                                    </materialDesign:ColorZone>
+                                    <Grid
+        Grid.Row="1"
+        Margin="0 6 0 0"
+        HorizontalAlignment="Center"
+        VerticalAlignment="Top"
+        Width="172">
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition />
+                                            <RowDefinition />
+                                            <RowDefinition />
+                                            <RowDefinition />
+                                        </Grid.RowDefinitions>
+                                        <TextBox
+          materialDesign:HintAssist.Hint="Title"
+          materialDesign:HintAssist.IsFloating="True"
+          Margin="0 12 0 0">
+                                            Cycling
+                                        </TextBox>
+                                        <TextBox
+          Grid.Row="1"
+          materialDesign:HintAssist.Hint="Description"
+          materialDesign:HintAssist.IsFloating="True"
+          Margin="0 12 0 0" TextWrapping="Wrap">
+                                            A great way to keep fit and forget about the constant grind of IT.
+                                        </TextBox>
+                                        <StackPanel
+          Grid.Row="2"
+          Orientation="Vertical"
+          Margin="0 12 0 0"
+          HorizontalAlignment="Left">
+                                            <DatePicker
+  x:Name="FutureDatePicker1"
+  Width="172"
+  materialDesign:HintAssist.Hint="Completion Date">
+                                                <DatePicker.SelectedDate>
+                                                    <Binding
+      Path="FutureValidatingDate"
+      UpdateSourceTrigger="PropertyChanged">
+                                                        <Binding.ValidationRules>
+                                                            <domain1:FutureDateValidationRule
+          ValidatesOnTargetUpdated="True" xmlns:domain="clr-namespace:MaterialDesignDemo.Domain" />
+                                                        </Binding.ValidationRules>
+                                                    </Binding>
+                                                </DatePicker.SelectedDate>
+                                            </DatePicker>
+
+                                            <Button Style="{StaticResource MaterialDesignFlatButton}">
+                                                ACCEPT
+                                            </Button>
+                                        </StackPanel>
+                                    </Grid>
+                                </Grid>
+                            </materialDesign:Flipper.BackContent>
+                        </materialDesign:Flipper>
+                        <materialDesign:Flipper Margin="0,0,0,60.6" VerticalAlignment="Stretch">
+                            <materialDesign:Flipper.FrontContent>
+                                <materialDesign:Card
+  Width="200">
+                                    <Grid>
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition
+        Height="140" />
+                                            <RowDefinition
+        Height="*" />
+                                            <RowDefinition
+        Height="Auto" />
+                                        </Grid.RowDefinitions>
+                                        <Image
+                    Source="C:\Users\Rahul Jain\source\repos\WpfAppDemo\ToDoApp\Resources\Cycling.jpg"
+      Height="140"
+      Width="196"
+      Stretch="UniformToFill" />
+                                        <Button
+      Grid.Row="0"
+      Style="{StaticResource MaterialDesignFloatingActionMiniAccentButton}"
+      HorizontalAlignment="Right"
+      VerticalAlignment="Bottom"
+      Margin="0 0 16 -20">
+                                            <materialDesign:PackIcon
+        Kind="Number4" 
+        Height="Auto"
+                        Width="Auto"
+                        />
+                                        </Button>
+                                        <StackPanel
+      Grid.Row="1"
+      Margin="8 24 8 0">
+                                            <TextBlock
+        FontWeight="Bold">
+      Cycling
+                                            </TextBlock>
+                                            <TextBlock
+        TextWrapping="Wrap"
+        VerticalAlignment="Center">
+      A great way to keep fit and forget about the constant grind of IT.
+                                            </TextBlock>
+                                            <TextBlock
+        TextWrapping="Wrap"
+        VerticalAlignment="Center" Style="{StaticResource CardDate}">
+            Finish By 19-01-2019
+                                            </TextBlock>
+                                        </StackPanel>
+                                        <StackPanel
+      HorizontalAlignment="Right"
+      Grid.Row="2"
+      Orientation="Horizontal"
+      Margin="8">
+                                            <Button
+        Style="{StaticResource MaterialDesignToolButton}"
+        Width="30"
+        Padding="2 0 2 0"
+        materialDesign:RippleAssist.IsCentered="True" Click="IconSwitch">
+                                                <materialDesign:PackIcon
+          Kind="CheckCircleOutline" />
+                                            </Button>
+
+                                            <Button
+          Style="{StaticResource MaterialDesignToolButton}"
+Padding="2 0 2 0"
+        materialDesign:RippleAssist.IsCentered="True"
+          Command="{x:Static materialDesign:Flipper.FlipCommand}"
+          >
+                                                EDIT
+                                            </Button>
+                                        </StackPanel>
+                                    </Grid>
+                                </materialDesign:Card>
+                            </materialDesign:Flipper.FrontContent>
+                            <materialDesign:Flipper.BackContent>
+                                <Grid
+      Height="350"
+      Width="200">
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition
+          Height="Auto" />
+                                        <RowDefinition
+          Height="*" />
+                                    </Grid.RowDefinitions>
+                                    <materialDesign:ColorZone
+        Mode="Accent"
+        Padding="6">
+                                        <StackPanel
+          Orientation="Horizontal">
+                                            <Button
+            Style="{StaticResource MaterialDesignToolForegroundButton}"
+            Command="{x:Static materialDesign:Flipper.FlipCommand}"
+            HorizontalAlignment="Left">
+                                                <materialDesign:PackIcon
+              Kind="ArrowLeft"
+              HorizontalAlignment="Right" />
+                                            </Button>
+                                            <TextBlock
+            Margin="8 0 0 0"
+            VerticalAlignment="Center">
+          Edit Item
+                                            </TextBlock>
+                                        </StackPanel>
+                                    </materialDesign:ColorZone>
+                                    <Grid
+        Grid.Row="1"
+        Margin="0 6 0 0"
+        HorizontalAlignment="Center"
+        VerticalAlignment="Top"
+        Width="172">
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition />
+                                            <RowDefinition />
+                                            <RowDefinition />
+                                            <RowDefinition />
+                                        </Grid.RowDefinitions>
+                                        <TextBox
+          materialDesign:HintAssist.Hint="Title"
+          materialDesign:HintAssist.IsFloating="True"
+          Margin="0 12 0 0">
+                                            Cycling
+                                        </TextBox>
+                                        <TextBox
+          Grid.Row="1"
+          materialDesign:HintAssist.Hint="Description"
+          materialDesign:HintAssist.IsFloating="True"
+          Margin="0 12 0 0" TextWrapping="Wrap">
+                                            A great way to keep fit and forget about the constant grind of IT.
+                                        </TextBox>
+                                        <StackPanel
+          Grid.Row="2"
+          Orientation="Vertical"
+          Margin="0 12 0 0"
+          HorizontalAlignment="Left">
+                                            <DatePicker
+  x:Name="FutureDatePicker4"
+  Width="172"
+  materialDesign:HintAssist.Hint="Completion Date">
+                                                <DatePicker.SelectedDate>
+                                                    <Binding
+      Path="FutureValidatingDate"
+      UpdateSourceTrigger="PropertyChanged">
+                                                        <Binding.ValidationRules>
+                                                            <domain1:FutureDateValidationRule
+          ValidatesOnTargetUpdated="True" xmlns:domain="clr-namespace:MaterialDesignDemo.Domain" />
+                                                        </Binding.ValidationRules>
+                                                    </Binding>
+                                                </DatePicker.SelectedDate>
+                                            </DatePicker>
+                                            <Button Style="{StaticResource MaterialDesignFlatButton}">
+                                                ACCEPT
+                                            </Button>
+                                        </StackPanel>
+                                    </Grid>
+                                </Grid>
+                            </materialDesign:Flipper.BackContent>
+                        </materialDesign:Flipper>
+                        <materialDesign:Flipper Margin="0,0,0,60.6" VerticalAlignment="Stretch">
+                            <materialDesign:Flipper.FrontContent>
+                                <materialDesign:Card
+  Width="200">
+                                    <Grid>
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition
+        Height="140" />
+                                            <RowDefinition
+        Height="*" />
+                                            <RowDefinition
+        Height="Auto" />
+                                        </Grid.RowDefinitions>
+                                        <Image
+                    Source="C:\Users\Rahul Jain\source\repos\WpfAppDemo\ToDoApp\Resources\Cycling.jpg"
+      Height="140"
+      Width="196"
+      Stretch="UniformToFill" />
+                                        <Button
+      Grid.Row="0"
+      Style="{StaticResource MaterialDesignFloatingActionMiniAccentButton}"
+      HorizontalAlignment="Right"
+      VerticalAlignment="Bottom"
+      Margin="0 0 16 -20">
+                                            <materialDesign:PackIcon
+        Kind="Number5" 
+        Height="Auto"
+                        Width="Auto"
+                        />
+                                        </Button>
+                                        <StackPanel
+      Grid.Row="1"
+      Margin="8 24 8 0">
+                                            <TextBlock
+        FontWeight="Bold">
+      Cycling
+                                            </TextBlock>
+                                            <TextBlock
+        TextWrapping="Wrap"
+        VerticalAlignment="Center">
+      A great way to keep fit and forget about the constant grind of IT.
+                                            </TextBlock>
+                                            <TextBlock
+        TextWrapping="Wrap"
+        VerticalAlignment="Center" Style="{StaticResource CardDate}">
+            Finish By 19-01-2019
+                                            </TextBlock>
+                                        </StackPanel>
+                                        <StackPanel
+      HorizontalAlignment="Right"
+      Grid.Row="2"
+      Orientation="Horizontal"
+      Margin="8">
+                                            <Button
+        Style="{StaticResource MaterialDesignToolButton}"
+        Width="30"
+        Padding="2 0 2 0"
+        materialDesign:RippleAssist.IsCentered="True" 
+                                Click="IconSwitch">
+                                                <materialDesign:PackIcon
+          Kind="CheckCircleOutline" />
+                                            </Button>
+
+                                            <Button
+          Style="{StaticResource MaterialDesignToolButton}"
+Padding="2 0 2 0"
+        materialDesign:RippleAssist.IsCentered="True"
+          Command="{x:Static materialDesign:Flipper.FlipCommand}"
+          >
+                                                EDIT
+                                            </Button>
+                                        </StackPanel>
+                                    </Grid>
+                                </materialDesign:Card>
+                            </materialDesign:Flipper.FrontContent>
+                            <materialDesign:Flipper.BackContent>
+                                <Grid
+      Height="350"
+      Width="200">
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition
+          Height="Auto" />
+                                        <RowDefinition
+          Height="*" />
+                                    </Grid.RowDefinitions>
+                                    <materialDesign:ColorZone
+        Mode="Accent"
+        Padding="6">
+                                        <StackPanel
+          Orientation="Horizontal">
+                                            <Button
+            Style="{StaticResource MaterialDesignToolForegroundButton}"
+            Command="{x:Static materialDesign:Flipper.FlipCommand}"
+            HorizontalAlignment="Left">
+                                                <materialDesign:PackIcon
+              Kind="ArrowLeft"
+              HorizontalAlignment="Right" />
+                                            </Button>
+                                            <TextBlock
+            Margin="8 0 0 0"
+            VerticalAlignment="Center">
+          Edit Item
+                                            </TextBlock>
+                                        </StackPanel>
+                                    </materialDesign:ColorZone>
+                                    <Grid
+        Grid.Row="1"
+        Margin="0 6 0 0"
+        HorizontalAlignment="Center"
+        VerticalAlignment="Top"
+        Width="172">
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition />
+                                            <RowDefinition />
+                                            <RowDefinition />
+                                            <RowDefinition />
+                                        </Grid.RowDefinitions>
+                                        <TextBox
+          materialDesign:HintAssist.Hint="Title"
+          materialDesign:HintAssist.IsFloating="True"
+          Margin="0 12 0 0">
+                                            Cycling
+                                        </TextBox>
+                                        <TextBox
+          Grid.Row="1"
+          materialDesign:HintAssist.Hint="Description"
+          materialDesign:HintAssist.IsFloating="True"
+          Margin="0 12 0 0" TextWrapping="Wrap">
+                                            A great way to keep fit and forget about the constant grind of IT.
+                                        </TextBox>
+                                        <StackPanel
+          Grid.Row="2"
+          Orientation="Vertical"
+          Margin="0 12 0 0"
+          HorizontalAlignment="Left">
+                                            <DatePicker
+  x:Name="FutureDatePicker3"
+  Width="172"
+  materialDesign:HintAssist.Hint="Completion Date">
+                                                <DatePicker.SelectedDate>
+                                                    <Binding
+      Path="FutureValidatingDate"
+      UpdateSourceTrigger="PropertyChanged">
+                                                        <Binding.ValidationRules>
+                                                            <domain1:FutureDateValidationRule
+          ValidatesOnTargetUpdated="True" xmlns:domain="clr-namespace:MaterialDesignDemo.Domain" />
+                                                        </Binding.ValidationRules>
+                                                    </Binding>
+                                                </DatePicker.SelectedDate>
+                                            </DatePicker>
+                                            <Button Style="{StaticResource MaterialDesignFlatButton}">
+                                                ACCEPT
+                                            </Button>
+                                        </StackPanel>
+                                    </Grid>
+                                </Grid>
+                            </materialDesign:Flipper.BackContent>
+                        </materialDesign:Flipper>
+                    </UniformGrid>
+                </ScrollViewer>
+                <materialDesign:ColorZone
+        Mode="PrimaryMid"
+        Grid.Row="1"
+        VerticalAlignment="Bottom"
+                            Width="Auto"
+        Effect="{DynamicResource MaterialDesignShadowDepth5}">
+                    <TextBlock
+          Margin="16">
+        To Do List
+                    </TextBlock>
+                </materialDesign:ColorZone>
+                <Button
+        Style="{StaticResource MaterialDesignFloatingActionMiniAccentButton}"
+        Command="{x:Static materialDesign:DialogHost.OpenDialogCommand}"
+        VerticalAlignment="Bottom"
+        HorizontalAlignment="Right"
+        Grid.Row="0"
+        Margin="0 0 28 -20">
+                    <materialDesign:PackIcon
+          Kind="Plus"
+          Height="22"
+          Width="22" />
+                </Button>
+            </Grid>
+        </Border>
+    </materialDesign:DialogHost>
+</Window>
